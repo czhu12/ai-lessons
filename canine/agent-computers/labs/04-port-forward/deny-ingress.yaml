@@ -1,0 +1,8 @@
+# The same idea as Canine's per-computer NetworkPolicy: nothing inside the cluster may connect to pods in this
+# namespace. kubectl port-forward still works, because it enters the pod through the kubelet, not the pod network.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: deny-all-ingress, namespace: lab }
+spec:
+  podSelector: {}
+  policyTypes: [ Ingress ]

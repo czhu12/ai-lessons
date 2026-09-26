@@ -1,0 +1,30 @@
+# Root disk from a containerDisk: rebuilt from the image on EVERY boot, like a container's filesystem.
+# Every boot, cloud-init's bootcmd appends a line to /var/boots.log and prints the file to the serial console.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: ephemeral
+  namespace: lab
+spec:
+  runStrategy: Always
+
+  template:
+    spec:
+      domain:
+        cpu: { cores: 1 }
+        memory: { guest: 1Gi }
+        devices:
+          logSerialConsole: true
+          disks:
+            - { name: root, disk: { bus: virtio } }
+            - { name: cloudinit, disk: { bus: virtio } }
+          interfaces: [ { name: default, masquerade: {} } ]
+      networks: [ { name: default, pod: {} } ]
+      volumes:
+        - { name: root, containerDisk: { image: quay.io/containerdisks/ubuntu:24.04 } }
+        - name: cloudinit
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              bootcmd:
+                - sh -c 'echo "boot at $(date -u +%H:%M:%S) UTC" >> /var/boots.log; { echo "=== /var/boots.log ==="; cat /var/boots.log; echo "=== end ==="; } > /dev/ttyS0'

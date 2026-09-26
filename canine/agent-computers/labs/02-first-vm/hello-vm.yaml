@@ -1,0 +1,31 @@
+# The smallest useful KubeVirt VM: CirrOS (a ~20MB test Linux) booted from a "containerDisk".
+# A containerDisk is a disk image shipped inside a container image — convenient, but EPHEMERAL:
+# like a container's filesystem, every boot starts from the image again (Lab 3 fixes that with a DataVolume).
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: hello
+  namespace: lab
+spec:
+  runStrategy: Always            # keep it running; Halted = off (see vm_stop / vm_start in env.sh)
+  template:
+    spec:
+      domain:
+        cpu: { cores: 1 }
+        memory: { guest: 256Mi }
+        devices:
+          logSerialConsole: true   # stream the VM's serial console as logs of the "guest-console-log" container
+          disks:
+            - { name: root, disk: { bus: virtio } }
+            - { name: cloudinit, disk: { bus: virtio } }
+          interfaces: [ { name: default, masquerade: {} } ]   # VM sits behind NAT inside its pod
+      networks: [ { name: default, pod: {} } ]
+      volumes:
+        - name: root
+          containerDisk: { image: quay.io/kubevirt/cirros-container-disk-demo:v1.9.0 }
+        - name: cloudinit
+          cloudInitNoCloud:
+            # CirrOS runs a user-data script at boot. Anything written to /dev/ttyS0 shows up in the console log.
+            userData: |
+              #!/bin/sh
+              echo "=== hello from inside the VM: $(uname -a) ===" > /dev/ttyS0

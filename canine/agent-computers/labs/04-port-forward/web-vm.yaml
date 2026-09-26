@@ -1,0 +1,65 @@
+# A VM running a tiny web server on port 8080 *inside the guest* (the same port Selkies uses in agent computers).
+# cloud-init installs a small systemd service that writes a page and runs python's http.server, then prints
+# WEB_READY on the serial console. (Quote-heavy shell in YAML lists is fragile, so scripts go in write_files.)
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: web
+  namespace: lab
+  labels: { app: web }
+spec:
+  runStrategy: Always
+  template:
+    metadata:
+      labels: { app: web }        # copied to the launcher pod, so a Service can select it
+    spec:
+      domain:
+        cpu: { cores: 1 }
+        memory: { guest: 1Gi }
+        devices:
+          logSerialConsole: true
+          disks:
+            - { name: root, disk: { bus: virtio } }
+            - { name: cloudinit, disk: { bus: virtio } }
+          interfaces: [ { name: default, masquerade: {} } ]
+      networks: [ { name: default, pod: {} } ]
+      volumes:
+        - { name: root, containerDisk: { image: quay.io/containerdisks/ubuntu:24.04 } }
+        - name: cloudinit
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              write_files:
+                - path: /usr/local/bin/lab-web
+                  permissions: "0755"
+                  content: |
+                    #!/bin/sh
+                    mkdir -p /srv/www
+                    {
+                      echo "<h1>Hello from inside the VM</h1>"
+                      echo "<p>guest hostname: $(hostname)</p>"
+                      echo "<p>guest addresses (what the VM thinks its IP is):</p>"
+                      echo "<pre>$(ip -4 -o addr show | awk '{print $2, $4}')</pre>"
+                    } > /srv/www/index.html
+                    cd /srv/www && exec python3 -m http.server 8080
+                - path: /etc/systemd/system/lab-web.service
+                  content: |
+                    [Unit]
+                    Description=Lab web server on :8080
+                    After=network-online.target
+                    [Service]
+                    ExecStart=/usr/local/bin/lab-web
+                    ExecStartPost=/bin/sh -c 'sleep 1; echo WEB_READY > /dev/ttyS0'
+                    Restart=always
+                    [Install]
+                    WantedBy=multi-user.target
+              runcmd:
+                - [ systemctl, enable, --now, lab-web.service ]
+---
+# A normal Kubernetes Service in front of the VM's launcher pod: masquerade forwards pod ports into the guest
+apiVersion: v1
+kind: Service
+metadata: { name: web, namespace: lab }
+spec:
+  selector: { app: web }
+  ports: [ { port: 80, targetPort: 8080 } ]

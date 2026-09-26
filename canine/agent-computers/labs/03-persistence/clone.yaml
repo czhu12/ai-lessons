@@ -1,0 +1,36 @@
+# Part B, the "golden image" idea: this VM's disk is a CLONE of the persistent VM's disk (CDI copies the PVC).
+# It starts with everything the original had, then goes its own way. Canine clones every agent computer this way.
+# CDI only clones a disk that isn't in use, so stop the persistent VM first (the run script does).
+# Every boot, cloud-init's bootcmd appends a line to /var/boots.log and prints the file to the serial console.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: clone
+  namespace: lab
+spec:
+  runStrategy: Always
+  dataVolumeTemplates:
+    - metadata: { name: clone-root }
+      spec:
+        source: { pvc: { namespace: lab, name: persistent-root } }
+        storage: { accessModes: [ ReadWriteOnce ], volumeMode: Filesystem, resources: { requests: { storage: 5Gi } } }
+  template:
+    spec:
+      domain:
+        cpu: { cores: 1 }
+        memory: { guest: 1Gi }
+        devices:
+          logSerialConsole: true
+          disks:
+            - { name: root, disk: { bus: virtio } }
+            - { name: cloudinit, disk: { bus: virtio } }
+          interfaces: [ { name: default, masquerade: {} } ]
+      networks: [ { name: default, pod: {} } ]
+      volumes:
+        - { name: root, dataVolume: { name: clone-root } }
+        - name: cloudinit
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              bootcmd:
+                - sh -c 'echo "boot at $(date -u +%H:%M:%S) UTC" >> /var/boots.log; { echo "=== /var/boots.log ==="; cat /var/boots.log; echo "=== end ==="; } > /dev/ttyS0'

@@ -1,0 +1,36 @@
+# Root disk is a DataVolume: CDI imports the Ubuntu image ONCE into a PersistentVolumeClaim, and the VM boots from it
+# forever after. This is how agent computers and Omarchy keep everything you install.
+# Every boot, cloud-init's bootcmd appends a line to /var/boots.log and prints the file to the serial console.
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: persistent
+  namespace: lab
+spec:
+  runStrategy: Always
+  dataVolumeTemplates:
+    - metadata: { name: persistent-root }
+      spec:
+        source: { registry: { url: "docker://quay.io/containerdisks/ubuntu:24.04" } }
+        # local-path has no default access mode in CDI's StorageProfile, so spell it out (same as Canine does)
+        storage: { accessModes: [ ReadWriteOnce ], volumeMode: Filesystem, resources: { requests: { storage: 5Gi } } }
+  template:
+    spec:
+      domain:
+        cpu: { cores: 1 }
+        memory: { guest: 1Gi }
+        devices:
+          logSerialConsole: true
+          disks:
+            - { name: root, disk: { bus: virtio } }
+            - { name: cloudinit, disk: { bus: virtio } }
+          interfaces: [ { name: default, masquerade: {} } ]
+      networks: [ { name: default, pod: {} } ]
+      volumes:
+        - { name: root, dataVolume: { name: persistent-root } }
+        - name: cloudinit
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              bootcmd:
+                - sh -c 'echo "boot at $(date -u +%H:%M:%S) UTC" >> /var/boots.log; { echo "=== /var/boots.log ==="; cat /var/boots.log; echo "=== end ==="; } > /dev/ttyS0'
