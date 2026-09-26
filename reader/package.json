@@ -1,0 +1,16 @@
+{
+  "name": "ai-lessons-reader",
+  "private": true,
+  "description": "Builds the lessons in ../books into a static, stateless reader site",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "node build.js && node serve.js"
+  },
+  "dependencies": {
+    "highlight.js": "11.11.1",
+    "js-yaml": "4.1.0",
+    "markdown-it": "14.1.0",
+    "markdown-it-anchor": "9.2.0"
+  }
+}

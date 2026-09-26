@@ -1,0 +1,37 @@
+# Book metadata for the reader. Chapter files are listed in reading order; titles come from each file's first heading.
+title: Desktops in Kubernetes
+subtitle: Agent computers, KubeVirt, Selkies and Omarchy
+description: >-
+  How Canine runs full Linux desktops as KubeVirt VMs, streams them to the browser with Selkies, and lets AI
+  agents drive them. From virtualization basics to X11/Wayland, Omarchy, AWS and latency, with nine hands-on labs.
+updated: 2026-09-26
+parts:
+  - title: Chapters
+    chapters:
+      - 01-the-big-picture.md
+      - 02-virtualization-from-zero.md
+      - 03-kubevirt.md
+      - 04-how-linux-draws-a-desktop.md
+      - 05-selkies.md
+      - 06-the-canine-side.md
+      - 07-the-golden-image-pipeline.md
+      - 08-the-computer-server.md
+      - 09-omarchy.md
+      - 10-moving-to-aws.md
+      - 11-latency.md
+      - 12-the-direct-connection-experiment.md
+      - 13-debugging-war-stories.md
+      - 14-current-state-and-open-work.md
+      - 15-glossary-and-cheat-sheet.md
+  - title: Labs
+    chapters:
+      - 16-lab-setup.md
+      - 17-lab-1-kvm.md
+      - 18-lab-2-first-vm.md
+      - 19-lab-3-persistence.md
+      - 20-lab-4-port-forward.md
+      - 21-lab-5-x11.md
+      - 22-lab-6-wayland.md
+      - 23-lab-7-selkies.md
+      - 24-lab-8-mini-proxy.md
+      - 25-lab-9-agent-api.md

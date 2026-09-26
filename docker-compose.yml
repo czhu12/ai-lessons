@@ -1,0 +1,9 @@
+services:
+  reader:
+    build: .
+    image: ai-lessons-reader
+    ports:
+      - "8080:8080"
+    read_only: true
+    mem_limit: 8m
+    restart: unless-stopped

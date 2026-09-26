@@ -1,0 +1,7 @@
+# Never send local lab secrets or build output into the image
+**/.secrets
+**/.kube
+**/.local.env
+**/node_modules
+dist
+.git
