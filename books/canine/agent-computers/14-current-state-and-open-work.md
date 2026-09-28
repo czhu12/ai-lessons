@@ -27,7 +27,8 @@ password and SSH key on their database record.
 
 ## Deferred work
 
-1. **Lifecycle:** stop/start/pause/resume from the UI, auto-pause on idle, auto-resume on connect.
+1. **Lifecycle:** Stop and Start work (a stopped computer keeps its disk and frees its memory and CPU; start is
+   ~30 s to a streaming desktop). Still to do: stop idle computers automatically, start on connect.
 2. **Agent control on Wayland:** a replacement for the computer server that drives Hyprland (its IPC, a
    screen-capture protocol, virtual keyboard/pointer), then API tokens on the proxy and `/api/v1/agent_computers`.
 3. **Share the ISO:** each computer imports its own 6 GB copy; import once per cluster and clone it instead.
