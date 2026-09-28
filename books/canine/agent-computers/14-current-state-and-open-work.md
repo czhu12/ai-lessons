@@ -33,6 +33,5 @@ password and SSH key on their database record.
 3. **Share the ISO:** each computer imports its own 6 GB copy; import once per cluster and clone it instead.
 4. **Latency tuning:** Selkies encoder settings, CPU measurement, instance type, maybe WebRTC.
 5. **Ops:** Elastic IP for cluster 34.
-6. **Omarchy idle CPU:** disable hypridle/the screensaver inside the VM.
-7. **Disk stats:** Omarchy has no QEMU guest agent, so the overview can't show disk usage. Installing it needs a full
+6. **Disk stats:** Omarchy has no QEMU guest agent, so the overview can't show disk usage. Installing it needs a full
    `pacman -Syu`, which provisioning deliberately avoids.

@@ -37,6 +37,7 @@ Short cause → fix notes. Each one teaches something transferable.
 | First API calls got "connection refused" | `kubectl port-forward` isn't ready instantly | Wait for the port (`until nc -z ...`) instead of `sleep 3` |
 | **Typed into the user's Chromium** | `wtype` sends keys to whatever is focused; the lab window hadn't opened (wrong dispatch syntax) | Open your own window, identify it by app-id/PID, and check focus before typing, every time |
 | The ssh session died mid-command | `pkill -f "foot --title lab-window"` matched the ssh shell whose command line contained that text | Anchor patterns (`^foot`) or kill by PID |
+| The double cursor came back after a while | Omarchy's screensaver hides the cursor while it runs and runs `hl.config({ cursor = { invisible = false } })` when it exits, overwriting our setting | Turn the screensaver off with Omarchy's own toggle (`~/.local/state/omarchy/toggles/screensaver-off`); a config that "works" can still be undone at runtime by another program |
 | `find_element` for editable text → `TypeError` | Computer-server bug: `text.get_text(0, n)` on the object the GObject bindings return | Call `Atspi.Text.get_text(text, 0, n)`; the same bug breaks `get_accessibility_tree` for apps with text fields |
 
 Process mistakes worth remembering (mine): claiming a rejected command hadn't run when it had; printing "reachable"
