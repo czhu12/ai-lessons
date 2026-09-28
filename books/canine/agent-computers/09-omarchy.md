@@ -74,7 +74,8 @@ It was created by hand, so we inserted an `AgentComputer` row pointing at it (`d
 patched to `omarchy-spike`). The proxy only needs a namespace and a VM name to find the launcher pod, so the connect
 page just works. Records: **id 11** (Hetzner, cluster 33), **id 12** (AWS, cluster 34).
 
-Passwords: the Omarchy login password is in `labs/.secrets/password.txt` (you'll need it for the lock
+Passwords: none any more. On 2026-09-28 the password was deleted and `sudo` made passwordless, since Canine is the
+only way in (see [Automating Omarchy](26-automating-omarchy.md)). The old one is still in `labs/.secrets/password.txt` (it was for the lock
 screen and `sudo`).
 
 ✅ **Check yourself:** How does the installer find its answer files? Why does the ISO boot on the first start but

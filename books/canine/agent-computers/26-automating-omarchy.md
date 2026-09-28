@@ -14,7 +14,8 @@ AgentComputer.create!           generates a login password + an SSH key pair (st
       3. VirtualMachine <name>       ISO disk (imported by CDI) + blank 60Gi root disk + cidata drive
       4. wait: VM Running            ISO imported (~1.5 min for 6.2 GB on Hetzner), VM booted
       5. wait: SSH login works       the installer finished and rebooted into the installed system
-      6. SSH: omarchy-setup.sh       Selkies, autologin, firewall, 1080p @ 1.25, no animations/cursor
+      6. SSH: omarchy-setup.sh       Selkies, autologin, firewall, 1080p @ 1.25, no animations/cursor,
+                                     no screensaver, no desktop password
       7. wait: Selkies listening     then status = running
 ```
 
@@ -81,10 +82,13 @@ machine whose hostname is the computer's name. The live ISO has neither the user
 </details>
 
 <details>
-<summary>Why does Canine store a password at all, if it logs in with a key?</summary>
+<summary>Why is there no desktop password?</summary>
 
-The key is only for Canine's setup step. The person using the desktop needs the password for Omarchy's lock screen
-and for `sudo`. The overview page has a button that copies it.
+Canine already decides who can open the desktop, so a second password only got in the way. The installer requires
+one, so Canine generates it, and the setup script uses it once for `sudo` before deleting it. It also makes `sudo`
+and admin prompts passwordless and turns off idle locking. Omarchy's lock screen allows empty passwords (`nullok` in
+its PAM config), so if someone locks it by hand, typing any character and Enter unlocks it. Deleting the password,
+rather than editing Omarchy's PAM file, matters: `omarchy-apply-lock` rewrites that file on upgrades.
 
 </details>
 
