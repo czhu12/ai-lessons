@@ -71,6 +71,29 @@ clone permissions. And since every machine is a fresh install, there's no "same 
 Agent control will need a Wayland-native replacement for the computer server (see
 [Current state](14-current-state-and-open-work.md)).
 
+## Right-sizing memory: 8 GiB → 4 GiB
+
+Memory, not CPU, decides how many desktops fit on a node, so it was the first thing to cut. Measured on a fresh
+computer:
+
+| State | Used | Notes |
+|---|---|---|
+| Idle desktop (Hyprland, Omarchy's shell, Selkies) | ~2 GiB | Omarchy's shell (`quickshell`) alone is ~850 MiB |
+| Chromium with 6 heavy sites | ~3.1 GiB | |
+| At 4 GiB: 12 heavy tabs, one playing video | 3.0 GiB + 266 MiB swapped | no out-of-memory kills; Selkies kept streaming |
+
+Two things made 4 GiB safe:
+
+- **Compressed swap.** Omarchy sets up zram, swap that lives in RAM but compressed, so a little overflow is cheap.
+- **The host already gets freed memory back.** KubeVirt attaches a memory balloon with free page reporting
+  (`<memballoon ... freePageReporting='on'>` in the VM's libvirt XML). What made host memory creep to the full
+  8 GiB on long-running VMs wasn't a leak: Linux fills spare RAM with disk cache, which isn't "free". A smaller VM
+  simply caps how much cache it can hold.
+
+Result: twice as many desktops per node. One caveat: the first boot right after shrinking a VM hung in early boot
+(the boot splash timed out, then the guest stalled). It didn't happen again in five more reboots, so it's noted
+rather than fixed.
+
 ## Check yourself
 
 <details>
