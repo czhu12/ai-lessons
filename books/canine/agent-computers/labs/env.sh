@@ -6,7 +6,7 @@ export LABS="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 [ -f "$LABS/.local.env" ] && source "$LABS/.local.env"
 export KUBECONFIG="${KUBECONFIG_LABS:-$HOME/Downloads/aws-devserver-kubeconfig.yml}"
 export NODE_IP="${NODE_IP:?set NODE_IP (the AWS node public IP) in labs/.local.env}"
-export CANINE_DIR="${CANINE_DIR:-$HOME/Documents/Github/canine}"   # Labs 8 and 9 use the Canine repo
+export CANINE_DIR="${CANINE_DIR:-$HOME/Documents/Github/canine}"   # Lab 8 uses the Canine repo
 export LAB_NS=lab                                # every lab object lives here; `lab_reset` deletes it all
 export NODE_SSH_KEY="$HOME/Downloads/devserver-keypair.pem"
 # Copied from the session scratchpad so the labs keep working after it is cleaned up

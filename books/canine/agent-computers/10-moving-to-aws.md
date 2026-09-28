@@ -27,7 +27,8 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="server --tls-san <aws-node-ip>"
 Security group: 22 and 6443 from your IP only (Canine only needs the Kubernetes API; everything reaches the VMs via
 port-forward). 80/443 are only needed if you expose ingress.
 
-Then in Canine: add the cluster (id **34**) → install the KubeVirt package → golden image builds automatically.
+Then in Canine: add the cluster (id **34**) → install the KubeVirt package. (At the time this also built
+the Ubuntu golden image; that's gone now, see [Automating Omarchy](26-automating-omarchy.md).)
 
 **The IP problem:** without an **Elastic IP**, stop/start gives a new public IP (we saw `<previous-ip>` →
 `<aws-node-ip>).` Both the kubeconfig and the k3s certificate (`--tls-san`) are tied to the IP. Attach an Elastic IP

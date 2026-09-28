@@ -1,5 +1,9 @@
 # The golden image pipeline
 
+> **Removed on 2026-09-28.** Canine no longer builds the Ubuntu/XFCE agent computer: every agent computer is now
+> Omarchy, installed unattended (see [Automating Omarchy](26-automating-omarchy.md)). This chapter is kept because
+> the ideas still apply, but the code it describes is gone.
+
 ## Why a golden image
 
 Installing a desktop, Chrome, Selkies and the computer server takes many minutes. We do it **once per cluster**,

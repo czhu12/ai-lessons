@@ -1,5 +1,9 @@
 # The computer server: letting an AI agent drive the desktop
 
+> **Removed on 2026-09-28.** Canine no longer builds the Ubuntu/XFCE agent computer: every agent computer is now
+> Omarchy, installed unattended (see [Automating Omarchy](26-automating-omarchy.md)). This chapter is kept because
+> the ideas still apply, but the code it describes is gone.
+
 Lives in `resources/agent_computer/computer_server/` (Python, FastAPI, ~44 commands). Protocol is compatible with
 Cua's computer-server clients (we borrowed their good ideas, dropped their multi-platform code).
 

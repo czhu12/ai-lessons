@@ -40,7 +40,7 @@ NetworkPolicy filters traffic arriving over the pod network. `kubectl port-forwa
 <details>
 <summary>Answer</summary>
 
-Selkies and the computer server have no authentication of their own. The policy stops every other pod in the cluster from reaching them, while Canine, which authenticates the user first, reaches them via port-forward.
+Selkies has no authentication of its own. The policy stops every other pod in the cluster from reaching them, while Canine, which authenticates the user first, reaches them via port-forward.
 
 </details>
 

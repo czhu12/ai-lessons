@@ -23,6 +23,7 @@ anything.
 | 7 | [The golden image pipeline](07-the-golden-image-pipeline.md) | Content-versioned images, the builder VM, reading results off the serial console |
 | 8 | [The computer server](08-the-computer-server.md) | The agent API: pixels vs accessibility tree vs CDP, and the takeover lock |
 | 9 | [Omarchy](09-omarchy.md) | Unattended OS install in KubeVirt, streaming a Wayland session, the Hyprland tweaks |
+| 9b | [Automating Omarchy](26-automating-omarchy.md) | How "New computer" installs and sets up Omarchy unattended (added 2026-09-28) |
 | 10 | [Moving to AWS](10-moving-to-aws.md) | Picking an instance, nested virtualization, k3s setup, the IP problem |
 | 11 | [Latency](11-latency.md) | Where the time goes, what we measured, what Selkies told us about its pipeline |
 | 12 | [The direct-connection experiment](12-the-direct-connection-experiment.md) | Ticket/gatekeeper auth design, iframes and cookies, and why we rolled it back |
@@ -45,6 +46,5 @@ Scripts live in [`labs/`](labs/); each page below explains the lab and shows its
 | 6 | [Wayland and Hyprland](22-lab-6-wayland.md) | `hyprctl`, wtype, grim, live config on Omarchy |
 | 7 | [Selkies up close](23-lab-7-selkies.md) | Selkies without Canine, the Origin check, the CPU pipeline |
 | 8 | [Build the proxy yourself](24-lab-8-mini-proxy.md) | A 60-line Rack proxy; reproduce and fix the Origin bug |
-| 9 | [Be the agent](25-lab-9-agent-api.md) | Screenshots, shell, windows and the accessibility tree through the agent API |
 
 Rough time: chapters ~2 hours of reading; labs ~45 minutes of running (or ~20 minutes reading the transcripts).

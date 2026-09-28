@@ -3,8 +3,8 @@ title: Desktops in Kubernetes
 subtitle: Agent computers, KubeVirt, Selkies and Omarchy
 description: >-
   How Canine runs full Linux desktops as KubeVirt VMs, streams them to the browser with Selkies, and lets AI
-  agents drive them. From virtualization basics to X11/Wayland, Omarchy, AWS and latency, with nine hands-on labs.
-updated: 2026-09-26
+  agents drive them. From virtualization basics to X11/Wayland, Omarchy, AWS and latency, with eight hands-on labs.
+updated: 2026-09-28
 parts:
   - title: Chapters
     chapters:
@@ -17,6 +17,7 @@ parts:
       - 07-the-golden-image-pipeline.md
       - 08-the-computer-server.md
       - 09-omarchy.md
+      - 26-automating-omarchy.md
       - 10-moving-to-aws.md
       - 11-latency.md
       - 12-the-direct-connection-experiment.md
@@ -34,4 +35,3 @@ parts:
       - 22-lab-6-wayland.md
       - 23-lab-7-selkies.md
       - 24-lab-8-mini-proxy.md
-      - 25-lab-9-agent-api.md

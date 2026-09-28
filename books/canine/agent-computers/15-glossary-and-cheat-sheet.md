@@ -42,7 +42,6 @@ Set `KUBECONFIG=~/Downloads/aws-devserver-kubeconfig.yml` (cluster 34) first, or
 # --- KubeVirt state ---------------------------------------------------------------------------
 kubectl get vm,vmi -A                                   # VMs and running instances
 kubectl get dv,pvc -A                                   # disks and their import/clone progress
-kubectl get datasource -n canine-agent-computers        # the published golden image
 kubectl get kubevirt -n kubevirt; kubectl get cdi       # phase should be "Deployed"
 kubectl get nodes -o jsonpath='{.items[*].status.allocatable.devices\.kubevirt\.io/kvm}'  # KVM advertised?
 

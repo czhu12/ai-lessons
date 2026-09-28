@@ -56,7 +56,7 @@ resolution. Each one trades quality for CPU and latency.
 
 ## A finding on the Ubuntu agent computers
 
-Lab 9 showed that the XFCE agent computer's X screen is **8192×4096** (`xrandr --current`), because Selkies' X11
+Driving the (since removed) XFCE agent computer through its agent API showed that its X screen is **8192×4096** (`xrandr --current`), because Selkies' X11
 session sizes the virtual screen to its maximum. Consequences: agent screenshots are huge PNGs that are mostly
 empty, and dialogs open centred around (4000, 2000). Whether a person notices depends on how Selkies resizes the
 screen when a browser connects; worth checking. The fix is

@@ -6,7 +6,7 @@ progress saved as you go.
 
 | Series | Book |
 |---|---|
-| Canine | [Desktops in Kubernetes](books/canine/agent-computers/README.md): KubeVirt VMs, Selkies streaming, X11/Wayland, Omarchy, and Canine's agent computers (15 chapters + 9 labs) |
+| Canine | [Desktops in Kubernetes](books/canine/agent-computers/README.md): KubeVirt VMs, Selkies streaming, X11/Wayland, Omarchy, and Canine's agent computers (16 chapters + 8 labs) |
 
 ## Layout
 

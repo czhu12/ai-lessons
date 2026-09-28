@@ -37,12 +37,12 @@ CDI won't clone a PVC that's in use: copying a disk while a running OS writes to
 
 </details>
 
-**Q: The clone's log starts with the original's two lines. What's the equivalent in Canine?**
+**Q: The clone's log starts with the original's two lines. What was the equivalent in Canine?**
 
 <details>
 <summary>Answer</summary>
 
-Canine runs provision.sh once in a builder VM (installing XFCE, Chrome, Selkies, the computer server), then every agent computer's disk is a clone of that golden disk. It inherits everything installed, then diverges.
+Canine used to run provision.sh once in a builder VM (installing XFCE, Chrome, Selkies, the computer server), and every agent computer's disk was a clone of that golden disk. It inherited everything installed, then diverged.
 
 </details>
 

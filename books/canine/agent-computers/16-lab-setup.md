@@ -1,6 +1,6 @@
 # Labs: setup
 
-Nine hands-on labs against the real machines from this project. Each lab is a script that walks you through the
+Eight hands-on labs against the real machines from this project. Each lab is a script that walks you through the
 steps one at a time (press Enter to advance), printing every command before it runs so you can copy it later.
 
 **On your phone?** Every lab page has the questions with hidden answers and a collapsible **expected output**
@@ -18,7 +18,6 @@ section: a real transcript captured while building the lab. You can follow along
 | 6. Wayland & Hyprland | the Omarchy VM (cluster 34) | `labs/.secrets/spike_key` |
 | 7. Selkies up close | the Omarchy VM | Ruby |
 | 8. Build the proxy | the Omarchy VM + your Mac | Canine's bundle (Puma) |
-| 9. Be the agent | agent computer `desk-2` (id 10, cluster 33) | Canine running locally (reads the kubeconfig from its DB) |
 
 The node has 15 GiB of RAM and Omarchy reserves 8 GiB of it, so **run one lab at a time**. Running two VM labs at
 once is exactly how Lab 3's VM ended up `ErrorUnschedulable` while these were being built.
@@ -31,7 +30,6 @@ The labs need a few machine-specific things that aren't in git:
 |---|---|---|
 | `labs/.local.env` | `NODE_IP=<aws-node-ip>` and optionally `CANINE_DIR=...` (default `~/Documents/Github/canine`), `KUBECONFIG_LABS=...` | write it yourself |
 | `labs/.secrets/` | Omarchy's SSH key (`spike_key`) and login password | copied from the session that built Omarchy |
-| `labs/.kube/` | per-computer kubeconfigs, written by Lab 9 from Canine's DB | Lab 9 creates it |
 | `~/Downloads/aws-devserver-kubeconfig.yml`, `~/Downloads/devserver-keypair.pem` | cluster 34 kubeconfig, EC2 SSH key | the AWS setup |
 
 ```bash
@@ -64,7 +62,7 @@ same API endpoints with plain `kubectl`. That turned out to be a better lesson a
 ## Safety rules the labs follow
 
 - Everything the labs create lives in namespace `lab`, and each lab cleans up after itself.
-- Labs 6 and 9 act on **real desktops** (Omarchy, `desk-2`). They only type into a window they opened themselves,
+- Lab 6 acts on a **real desktop** (Omarchy). They only type into a window they opened themselves,
   and they check it has focus first. (One of the early test runs didn't, and typed into your Chromium. That's in
   the war stories.)
 - Secrets (`.secrets/`, `.kube/`) are git-ignored.

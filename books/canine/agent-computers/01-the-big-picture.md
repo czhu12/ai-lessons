@@ -33,7 +33,8 @@ A **computer in a browser tab** that both a person and an AI agent can use:
    └── computer server :8000 → the agent API (only in the Ubuntu agent-computer image)
 ```
 
-Two different guest operating systems exist today:
+Two different guest operating systems existed while this was being built (the Ubuntu one has since been removed;
+every agent computer is now Omarchy, see [Automating Omarchy](26-automating-omarchy.md)):
 
 | | Agent computer (Ubuntu image) | Omarchy spike |
 |---|---|---|
