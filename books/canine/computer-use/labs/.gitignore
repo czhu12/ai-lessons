@@ -1,0 +1,4 @@
+.kube/
+.secrets/
+.local.env
+out/

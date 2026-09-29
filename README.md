@@ -7,6 +7,7 @@ progress saved as you go.
 | Series | Book |
 |---|---|
 | Canine | [Desktops in Kubernetes](books/canine/agent-computers/README.md): KubeVirt VMs, Selkies streaming, X11/Wayland, Omarchy, and Canine's agent computers (16 chapters + 8 labs) |
+| Canine | [Computer Use](books/canine/computer-use/README.md): letting Claude drive an agent computer: Anthropic's computer-use actions on Wayland, uinput, the accessibility tree, MCP tools (9 chapters + 5 labs) |
 
 ## Layout
 

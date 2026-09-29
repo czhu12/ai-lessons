@@ -1,0 +1,28 @@
+# Book metadata for the reader. Chapter files are listed in reading order; titles come from each file's first heading.
+title: Computer Use
+subtitle: Letting Claude drive an agent computer
+description: >-
+  How Canine lets Claude see and operate its Omarchy agent computers: a Python server in each VM that speaks
+  Anthropic's computer-use actions and reads the accessibility tree, the Wayland input and coordinate details behind
+  it, and the MCP tools that connect Claude Code to it. Nine chapters and five labs run against a real machine.
+updated: 2026-09-28
+parts:
+  - title: Chapters
+    chapters:
+      - 01-what-computer-use-is.md
+      - 02-seeing-the-screen.md
+      - 03-pressing-keys-and-clicking.md
+      - 04-the-accessibility-tree.md
+      - 05-the-server-as-a-python-package.md
+      - 06-the-canine-side.md
+      - 07-war-stories.md
+      - 08-current-state-and-open-work.md
+      - 09-glossary-and-cheat-sheet.md
+  - title: Labs
+    chapters:
+      - 10-lab-setup.md
+      - 11-lab-1-the-api.md
+      - 12-lab-2-drive.md
+      - 13-lab-3-accessibility.md
+      - 14-lab-4-uinput.md
+      - 15-lab-5-mcp.md

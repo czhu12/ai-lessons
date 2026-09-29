@@ -28,6 +28,7 @@ const slugify = (s) => String(s).toLowerCase().replace(/<[^>]+>/g, "").replace(/
 const write = (file, content) => { fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, content); };
 const readYaml = (file) => (fs.existsSync(file) ? yaml.load(fs.readFileSync(file, "utf8")) || {} : {});
 const minutes = (words) => Math.max(1, Math.round(words / WORDS_PER_MINUTE));
+const PAGES = new Map(); // absolute path of every book's README.md and chapters -> reader URL, for links between books
 
 // ---------------------------------------------------------------------------------------------------------------
 // Discover series and books
@@ -63,11 +64,13 @@ function loadBook(seriesSlug, bookSlug, dir) {
       const title = (source.match(/^#\s+(.+)$/m) || [null, file])[1].trim();
       const chapter = { file, slug: file.replace(/\.md$/, ""), title, source, book, number: book.chapters.length + 1, part: entry.title };
       chapter.url = `${book.url}${chapter.slug}/`;
+      PAGES.set(path.join(dir, file), chapter.url);
       entry.chapters.push(chapter);
       book.chapters.push(chapter);
     }
     book.parts.push(entry);
   }
+  PAGES.set(path.join(dir, "README.md"), book.url);
   return book;
 }
 
@@ -88,7 +91,8 @@ function markdownFor(book, assets) {
   });
   md.use(anchor, { slugify, tabIndex: false, permalink: anchor.permalink.headerLink({ safariReaderFix: true }) });
 
-  // Chapter links become reader URLs; images are copied into the site; anything else local links to GitHub
+  // Chapter links (in this book or another) become reader URLs; images are copied into the site; anything else
+  // local links to GitHub
   const byFile = new Map(book.chapters.map((c) => [c.file, c]));
   const rewrite = (href, isImage) => {
     if (!href || /^([a-z]+:|#|\/)/i.test(href)) return href;
@@ -97,6 +101,7 @@ function markdownFor(book, assets) {
     if (rel === "README.md") return book.url + (hash ? `#${hash}` : "");
     if (byFile.has(rel)) return byFile.get(rel).url + (hash ? `#${hash}` : "");
     const abs = path.join(book.dir, rel);
+    if (!isImage && PAGES.has(abs)) return PAGES.get(abs) + (hash ? `#${hash}` : ""); // another book's page
     if (isImage && fs.existsSync(abs)) { assets.add(rel); return `${book.url}${rel}`; }
     const kind = fs.existsSync(abs) && fs.statSync(abs).isDirectory() ? "tree" : "blob";
     return `${REPO_URL}/${kind}/main/books/${book.id}/${rel}${hash ? `#${hash}` : ""}`;

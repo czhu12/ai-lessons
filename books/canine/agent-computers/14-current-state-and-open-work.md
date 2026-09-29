@@ -29,8 +29,8 @@ password and SSH key on their database record.
 
 1. **Lifecycle:** Stop and Start work (a stopped computer keeps its disk and frees its memory and CPU; start is
    ~30 s to a streaming desktop). Still to do: stop idle computers automatically, start on connect.
-2. **Agent control on Wayland:** a replacement for the computer server that drives Hyprland (its IPC, a
-   screen-capture protocol, virtual keyboard/pointer), then API tokens on the proxy and `/api/v1/agent_computers`.
+2. **Agent control on Wayland:** built (in review): a computer-use server in each VM plus MCP tools, with its own
+   book, [Computer Use](../computer-use/README.md). Still to do: API tokens on the proxy and `/api/v1/agent_computers`.
 3. **Share the ISO:** each computer imports its own 6 GB copy; import once per cluster and clone it instead.
 4. **Latency tuning:** Selkies encoder settings, CPU measurement, instance type, maybe WebRTC.
 5. **Ops:** Elastic IP for cluster 34.
