@@ -8,6 +8,7 @@ progress saved as you go.
 |---|---|
 | Canine | [Desktops in Kubernetes](books/canine/agent-computers/README.md): KubeVirt VMs, Selkies streaming, X11/Wayland, Omarchy, and Canine's agent computers (16 chapters + 8 labs) |
 | Canine | [Computer Use](books/canine/computer-use/README.md): letting Claude drive an agent computer: Anthropic's computer-use actions on Wayland, uinput, the accessibility tree, MCP tools (9 chapters + 5 labs) |
+| Canine | [Benchmarking Computer Use](books/canine/osworld-benchmark/README.md): running OSWorld on Canine's agent computers: the harness, where it misgraded, and what GPT-5.1, Claude and Qwen3.8 27B showed (6 chapters) |
 
 ## Layout
 

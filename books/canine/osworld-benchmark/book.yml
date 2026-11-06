@@ -1,0 +1,17 @@
+# Book metadata for the reader. Chapter files are listed in reading order; titles come from each file's first heading.
+title: Benchmarking Computer Use
+subtitle: Running OSWorld on Canine's agent computers
+description: >-
+  What happened when OSWorld's tasks were run on a real, stateful Canine agent computer: how the benchmark works,
+  the harness that emulates its VM, every way the harness got the score wrong, and what GPT-5.1, Claude and Qwen3.8
+  27B showed about the agent. Six chapters, with the scores and costs of 140-odd graded runs.
+updated: 2026-11-06
+parts:
+  - title: Chapters
+    chapters:
+      - 01-what-osworld-is.md
+      - 02-the-harness.md
+      - 03-when-the-harness-was-wrong.md
+      - 04-results.md
+      - 05-what-the-agent-gets-wrong.md
+      - 06-what-would-move-the-score.md
